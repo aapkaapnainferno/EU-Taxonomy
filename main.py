@@ -1,5 +1,6 @@
 import streamlit as st
-
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 # Page configuration
 st.set_page_config(
     page_title="EU Taxonomy",
@@ -80,6 +81,9 @@ if 'page' not in st.session_state:
 def continue_to_next_page():
     st.session_state.page = 'next_page'
 
+def continue_to_next_page1():
+    st.session_state.page = 'next_page1'
+    
 def go_back_to_main_page():
     st.session_state.page = 'main'
     # st.session_state.show_eligibility = False
@@ -103,7 +107,8 @@ if st.session_state.page == 'main':
         field2 = st.text_input("Project", key='field2', placeholder="Enter project name")
         field3 = st.text_input("Capacity", key='field3', placeholder="Enter capacity in m3/d")
         field4 = st.text_input("Location", key='field4', placeholder="Enter location")
-        field5 = st.text_input("Date", key='field5', placeholder="Enter date(DD/MM/YYYY)")
+        # field5 = st.text_input("Date", key='field5', placeholder="Enter date(DD/MM/YYYY)")
+        field5 = st.date_input("Date", key='field5')
 
         if st.button('Next') and field1 != "" and field2 != "" and field3 != "" and field4 != "" and field5 != "":
             st.session_state['show_eligibility'] = True
@@ -111,8 +116,8 @@ if st.session_state.page == 'main':
     # Main content
     with st.container():
         st.markdown(
-            f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%;text-align: center; font-size: 54px; margin-top: -50px;" class="center-text">'
-            '<strong>EU TAXONOMY</strong>'
+            f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+            '<strong>EU-WATER-FIT (Water Assessment and EU Taxonomy Evaluation for Resilient Financing and Investment Tool)</strong>'
             '</div>', unsafe_allow_html=True)
 
     # Adding some space below the logos
@@ -181,11 +186,18 @@ if st.session_state.page == 'main':
                     f'<div style="background-color: #FF6347; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;text-align: center;" class="big-font">'
                     '<strong>The envisioned Activity is Not EU Taxonomy Eligible</strong>'
                     '</div>', unsafe_allow_html=True)
+        col3, col4 = st.columns((1, 7))
+        with col4:
+            if (answer2 == "Yes" or answer3 == "Yes") and answer1 == "E36.00":
+                st.markdown(
+                    f'<div style="background-color: #00FF00; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%; text-align: center;" class="big-font">'
+                    '<strong>The envisioned Activity is EU Taxonomy Eligible</strong>'
+                    '</div>', unsafe_allow_html=True)
         col1, col2 = st.columns((1, 7))
         if answer2 == "Yes" or answer3 == "Yes":
             with col1:
                 st.markdown(
-                    f'<div style="background-color: #3f3f3f; color: white; padding: 15px; border-radius: 100px; margin-bottom: 15px; width: 100%;" class="big-font-section">'
+                    f'<br><div style="background-color: #3f3f3f; color: white; padding: 15px; border-radius: 100px; margin-bottom: 15px; width: 100%;" class="big-font-section">'
                     '<strong>ALIGNMENT</strong>'
                     '</div>', unsafe_allow_html=True)
             if answer2 == "Yes":
@@ -196,7 +208,7 @@ if st.session_state.page == 'main':
                     # '<strong>Subsection</strong>'
                     # '</div>', unsafe_allow_html=True)
                     st.markdown(
-                        f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
+                        f'<br><div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the net average energy consumption for abstraction and treatment for produced water supply (in kWh/m3)?</strong>'
                         '</div>', unsafe_allow_html=True)
                     answer4 = st.number_input('Enter your response (kWh/m3)', min_value=0.0, step=0.01,label_visibility='collapsed')
@@ -400,9 +412,153 @@ if st.session_state.page == 'main':
         st.info("Please fill in all input fields to proceed with eligibility questions.")
 #Make changes for the next page here
 elif st.session_state.page == 'next_page':
+    field11 = 0
+    field16 = 0
+    field19 = 0
+    field32 = 0
+    def custom_number_input(label, key, placeholder,value):
+        return st.number_input(label, key=key, format="%d",step = 1,value=value,placeholder=placeholder)
+    
+    def custom_percentage_input(label, key, placeholder,value):
+        return st.number_input(label, key=key, format="%d",step = 1,max_value=100,value=value,placeholder=placeholder)
+
+    def custom_text_input(label, key, placeholder):
+        return st.text_input(label, key=key, placeholder=placeholder)
+    
+    def custom_date_input(label, key):
+        return st.date_input(label, key=key)
+    
+    def calculate_future_date(date, months):
+        whole_months = int(months)
+        fractional_months = months - whole_months
+        future_date = date + relativedelta(months=whole_months)
+        additional_days = int(fractional_months * 30)
+        future_date += relativedelta(days=additional_days)
+        return future_date
+
     st.markdown(
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 54px; margin-top: -50px;" class="center-text">'
-        '<strong>FINANCIAL MODEL</strong>'
+        '<strong>FINANCIAL ASSESSMENT</strong>'
         '</div>', unsafe_allow_html=True)
-    # st.write("This is the next page.")
-    st.button("Back", on_click=go_back_to_main_page)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+        '<strong>Phase 1</strong>'
+        '</div>', unsafe_allow_html=True)
+    field6 = custom_number_input("Exchange Rate", 'field6', "Enter",0)
+    field7 = custom_date_input("Construction Start Date", 'field7')
+    field8 = custom_number_input("Construction Period(in months)", 'field8', "Enter",0)
+    if field8 != 0:
+        field9 = st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
+    field10 = custom_number_input("Operations Period(in months)", 'field10', "Enter",0)
+    if field10 != 0:
+        field11 = st.write("Construction End Date:", calculate_future_date(field7,field10)) # TBC
+    field12 = custom_percentage_input("Debt Ratio (%)", 'field12', "Enter",0) 
+    field13 = custom_percentage_input("Equity Ratio (%)", 'field13', "Enter",0)
+    field14 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field14', "Enter",0) 
+    field15 = custom_percentage_input("Construction Interest Rate (Margin Spread %)",'field15', "Enter",0)
+    if field14 != 0 and field15 != 0:
+        field16 = st.write("All in Rate (%)", field14 + field15) # TBC
+    field17 = custom_percentage_input("Operations Interest Rate (Base Rate %)",'field17', "Enter",0)
+    field18 = custom_percentage_input("Operations Interest Rate (Margin Spread %)",'field18', "Enter",0)
+    if field17 != 0 and field18 != 0:
+        field19 = st.write("All in Rate (%)", field17 + field18) # TBC
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+        '<strong>Phase 1</strong>'
+        '</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns((1, 1))
+    with col1:
+        field20 = custom_number_input("Construction Cost", 'field20',"Enter",0)
+        field21 = custom_number_input("Gross Availability", 'field21',"Enter",0)
+        field22 = custom_percentage_input("Availibility Factor (%)", 'field22',"Enter",95)
+        field23 = custom_percentage_input("Input to Output Ratio (%)", 'field23',"Enter",100)
+        field24 = custom_percentage_input("Leakage Ratio (%)", 'field24',"Enter",95)
+        field25 = custom_percentage_input("Labor Cost/Losses (%)", 'field25',"Enter",0)
+        field26 = custom_number_input("Maintenance Costs (EGP'000)", 'field26',"Enter",0)
+    with col2:
+        field27 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000)", 'field27',"Enter",0)
+        field28 = custom_number_input("Maintenance Cost (EGP'000)", 'field28',"Enter",0)
+        field29 = custom_number_input("Variable Cost (EGP'000)", 'field29',"Enter",0)
+        field30 = custom_number_input("Energy Consumption (KW/m³)", 'field30',"Enter",0)
+        field31 = custom_number_input("Energy Cost (EGP/KW)", 'field31',"Enter",0)
+        if field30 != 0 and field31 != 0:
+            field32 = st.write("Effective Price (EGP/m³)",field30*field31)
+        field33 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter",0)
+    st.button("Continue", on_click=continue_to_next_page1)
+elif st.session_state.page == 'next_page1':
+    field34 = 0
+    field39 = 0
+    field44 = 0
+    field60 = 0
+    def custom_number_input(label, key, placeholder,value):
+        return st.number_input(label, key=key, format="%d",step = 1,value=value,placeholder=placeholder)
+    
+    def custom_percentage_input(label, key, placeholder,value):
+        return st.number_input(label, key=key, format="%d",step = 1,max_value=100,value=value,placeholder=placeholder)
+
+    def custom_text_input(label, key, placeholder):
+        return st.text_input(label, key=key, placeholder=placeholder)
+    
+    def custom_date_input(label, key):
+        return st.date_input(label, key=key)
+    
+    def calculate_future_date(date, months):
+        whole_months = int(months)
+        fractional_months = months - whole_months
+        future_date = date + relativedelta(months=whole_months)
+        additional_days = int(fractional_months * 30)
+        future_date += relativedelta(days=additional_days)
+        return future_date
+
+    st.markdown(
+        f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 54px; margin-top: -50px;" class="center-text">'
+        '<strong>FINANCIAL ASSESSMENT</strong>'
+        '</div>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+        '<strong>Phase 2</strong>'
+        '</div>', unsafe_allow_html=True)
+    field34 = custom_number_input("Exchange Rate", 'field34', "Enter",0)
+    field35 = custom_date_input("Construction Start Date", 'field35')
+    field36 = custom_number_input("Construction Period(in months)", 'field36', "Enter",0)
+    if field36 != 0:
+        field37 = st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
+    field38 = custom_number_input("Operations Period(in months)", 'field38', "Enter",0)
+    if field38 != 0:
+        field39 = st.write("Construction End Date:", calculate_future_date(field35,field38)) # TBC
+    field40 = custom_percentage_input("Debt Ratio (%)", 'field40', "Enter",0) 
+    field41 = custom_percentage_input("Equity Ratio (%)", 'field41', "Enter",0)
+    field42 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field42', "Enter",0) 
+    field43 = custom_percentage_input("Construction Interest Rate (Margin Spread %)",'field43', "Enter",0)
+    if field42 != 0 and field43 != 0:
+        field44 = st.write("All in Rate (%)", field42 + field43) # TBC
+    field45 = custom_percentage_input("Operations Interest Rate (Base Rate %)",'field45', "Enter",0)
+    field46 = custom_percentage_input("Operations Interest Rate (Margin Spread %)",'field46', "Enter",0)
+    if field45 != 0 and field46 != 0:
+        field47 = st.write("All in Rate (%)", field45 + field46) # TBC
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+        '<strong>Phase 2</strong>'
+        '</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns((1, 1))
+    with col1:
+        field48 = custom_number_input("Construction Cost", 'field48',"Enter",0)
+        field49 = custom_number_input("Gross Availability", 'field49',"Enter",0)
+        field50 = custom_percentage_input("Availibility Factor (%)", 'field50',"Enter",95)
+        field51 = custom_percentage_input("Input to Output Ratio (%)", 'field51',"Enter",100)
+        field52 = custom_percentage_input("Leakage Ratio (%)", 'field52',"Enter",95)
+        field53 = custom_percentage_input("Labor Cost/Losses (%)", 'field53',"Enter",0)
+        field54 = custom_number_input("Maintenance Costs (EGP'000)", 'field54',"Enter",0)
+    with col2:
+        field55 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000)", 'field27',"Enter",0)
+        field56 = custom_number_input("Maintenance Cost (EGP'000)", 'field28',"Enter",0)
+        field57 = custom_number_input("Variable Cost (EGP'000)", 'field29',"Enter",0)
+        field58 = custom_number_input("Energy Consumption (KW/m³)", 'field58',"Enter",0)
+        field59 = custom_number_input("Energy Cost (EGP/KW)", 'field59',"Enter",0)
+        if field58 != 0 and field59 != 0:
+            field60 = st.write("Effective Price (EGP/m³)",field58*field59)
+        field61 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter",0)
