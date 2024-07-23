@@ -475,10 +475,11 @@ elif st.session_state.page == 'next_page':
     field7 = custom_date_input("Construction Start Date", 'field7')
     field8 = custom_number_input("Construction Period(in months)", 'field8', "Enter")
     if field8 != 0:
-        field9 = st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
+        st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
+        field9 = calculate_future_date(field7,field8)
     field10 = custom_number_input("Operations Period(in months)", 'field10', "Enter")
     if field10 != 0:
-        field11 = st.write("Operations End Date:", calculate_future_date(field7,field10)) # TBC
+        field11 = st.write("Operations End Date:", calculate_future_date(field9,field10)) # TBC
     field12 = custom_percentage_input("Debt Ratio (%)", 'field12', "Enter") 
     field13 = custom_percentage_input("Equity Ratio (%)", 'field13', "Enter")
     field14 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field14', "Enter") 
@@ -547,13 +548,15 @@ elif st.session_state.page == 'next_page1':
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
         '<strong>Phase 2</strong>'
         '</div>', unsafe_allow_html=True)
+    field34 = custom_number_input("Exchange Rate", 'field34', "Enter")
     field35 = custom_date_input("Construction Start Date", 'field35')
     field36 = custom_number_input("Construction Period(in months)", 'field36', "Enter")
     if field36 != 0:
-        field37 = st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
+        st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
+        field37 = calculate_future_date(field35,field36)
     field38 = custom_number_input("Operations Period(in months)", 'field38', "Enter")
     if field38 != 0:
-        field39 = st.write("Operations End Date:", calculate_future_date(field35,field38)) # TBC
+        field39 = st.write("Operations End Date:", calculate_future_date(field37,field38)) # TBC
     field40 = custom_percentage_input("Debt Ratio (%)", 'field40', "Enter") 
     field41 = custom_percentage_input("Equity Ratio (%)", 'field41', "Enter")
     field42 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field42', "Enter") 
