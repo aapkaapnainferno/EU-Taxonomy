@@ -580,8 +580,8 @@ elif st.session_state.page == 'next_page1':
         field49 = custom_number_input("Gross Availability", 'field49',"Enter")
         field50 = custom_percentage_input("Availibility Factor (%)", 'field50',"Enter",95.0)
         field51 = custom_percentage_input("Input to Output Ratio (%)", 'field51',"Enter",100.0)
-        field52 = custom_percentage_input("Leakage Ratio (%)", 'field52',"Enter",95.0)
-        field53 = custom_percentage_input("Labor Cost/Losses (%)", 'field53',"Enter")
+        field52 = custom_percentage_input("Leakage Ratio/Losses (%)", 'field52',"Enter",95.0)
+        field53 = custom_percentage_input("Labor Cost (EGP'000)", 'field53',"Enter")
         field54 = custom_number_input("Maintenance Costs (EGP'000)", 'field54',"Enter")
     with col2:
         field55 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000)", 'field27',"Enter")
@@ -593,5 +593,5 @@ elif st.session_state.page == 'next_page1':
             field60 = st.write("Effective Price (EGP/m³)",field58*field59)
         field61 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter")
     st.button("Continue", on_click=continue_to_next_page2)
-elif st.session_state.page == 'next_page1':
-    st.markdown("<br><br>", unsafe_allow_html=True)
+elif st.session_state.page == 'next_page2':
+    st.markdown("Dashboard", unsafe_allow_html=True)
