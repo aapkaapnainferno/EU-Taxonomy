@@ -102,9 +102,9 @@ if st.session_state.page == 'main':
         # Logos at the top of the sidebar
         col1, col2 = st.columns((1, 1))
         with col1:
-            st.image("egypt.jpg", width=75)
+            st.image("egypt.jpg", width=100)
         with col2:
-            st.image("eu.jpg", width=75)
+            st.image("eu.jpg", width=100)
         
         st.markdown("# User Details")
         field1 = ""
@@ -124,10 +124,14 @@ if st.session_state.page == 'main':
 
     # Main content
     with st.container():
-        st.markdown(
-            f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
-            '<strong>EU-WATER-FIT (Water Assessment and EU Taxonomy Evaluation for Resilient Financing and Investment Tool)</strong>'
-            '</div>', unsafe_allow_html=True)
+        col1, col2 = st.columns((1, 5))
+        with col1:
+            st.image("CL1.png",width=180)
+        with col2:
+            st.markdown(
+                f'<br><br><div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
+                '<strong>EU-WATER-FIT (Water Assessment and EU Taxonomy Evaluation for Resilient Financing and Investment Tool)</strong>'
+                '</div>', unsafe_allow_html=True)
 
     # Adding some space below the logos
     st.markdown("<br>", unsafe_allow_html=True)
@@ -475,11 +479,10 @@ elif st.session_state.page == 'next_page':
     field7 = custom_date_input("Construction Start Date", 'field7')
     field8 = custom_number_input("Construction Period(in months)", 'field8', "Enter")
     if field8 != 0:
-        st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
-        field9 = calculate_future_date(field7,field8)
+        field9 = st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
     field10 = custom_number_input("Operations Period(in months)", 'field10', "Enter")
     if field10 != 0:
-        field11 = st.write("Operations End Date:", calculate_future_date(field9,field10)) # TBC
+        field11 = st.write("Operations End Date:", calculate_future_date(field7,field10)) # TBC
     field12 = custom_percentage_input("Debt Ratio (%)", 'field12', "Enter") 
     field13 = custom_percentage_input("Equity Ratio (%)", 'field13', "Enter")
     field14 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field14', "Enter") 
@@ -552,11 +555,10 @@ elif st.session_state.page == 'next_page1':
     field35 = custom_date_input("Construction Start Date", 'field35')
     field36 = custom_number_input("Construction Period(in months)", 'field36', "Enter")
     if field36 != 0:
-        st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
-        field37 = calculate_future_date(field35,field36)
+        field37 = st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
     field38 = custom_number_input("Operations Period(in months)", 'field38', "Enter")
     if field38 != 0:
-        field39 = st.write("Operations End Date:", calculate_future_date(field37,field38)) # TBC
+        field39 = st.write("Construction End Date:", calculate_future_date(field35,field38)) # TBC
     field40 = custom_percentage_input("Debt Ratio (%)", 'field40', "Enter") 
     field41 = custom_percentage_input("Equity Ratio (%)", 'field41', "Enter")
     field42 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field42', "Enter") 
