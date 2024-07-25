@@ -259,7 +259,7 @@ if st.session_state.page == 'main':
                         '</div>', unsafe_allow_html=True)
                     answer7 = st.number_input('Enter your response (kWh/m3)1', min_value=0.0, max_value=100.0, step=0.01,label_visibility='collapsed')
             #2B
-            if (answer2 == "Yes" or answer3 == "Yes") and (answer5 <= 1.5 and answer4 <= 0.5) or (answer6 >= 20 and answer7 >= 20):
+            if (answer2 == "Yes" and (answer5 <= 1.5 and answer4 <= 0.5)) or (answer3 == "Yes"  and (answer6 >= 20 and answer7 >= 20)):
                 with col2:
                     st.markdown(
                         f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
