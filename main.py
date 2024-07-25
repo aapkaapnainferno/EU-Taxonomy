@@ -482,25 +482,25 @@ elif st.session_state.page == 'next_page':
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
         '<strong>Phase 1</strong>'
         '</div>', unsafe_allow_html=True)
-    field6 = custom_number_input("Exchange Rate", 'field6', "Enter")
-    field7 = custom_date_input("Construction Start Date", 'field7')
-    field8 = custom_number_input("Construction Period(in months)", 'field8', "Enter")
+    field6 = custom_number_input("Exchange Rate - Phase 1", 'field6', "Enter")
+    field7 = custom_date_input("Construction Start Date - Phase 1", 'field7')
+    field8 = custom_number_input("Construction Period(in months) - Phase 1", 'field8', "Enter")
     if field8 != 0:
-        st.write("Construction End Date:", calculate_future_date(field7,field8)) # TBC
+        st.write("Construction End Date: - Phase 1", calculate_future_date(field7,field8)) # TBC
         field9 = calculate_future_date(field7,field8)
-    field10 = custom_number_input("Operations Period(in months)", 'field10', "Enter")
+    field10 = custom_number_input("Operations Period(in months) - Phase 1", 'field10', "Enter")
     if field10 != 0:
-        field11 = st.write("Operations End Date:", calculate_future_date(field9,field10)) # TBC
-    field12 = custom_percentage_input("Debt Ratio (%)", 'field12', "Enter") 
-    field13 = custom_percentage_input("Equity Ratio (%)", 'field13', "Enter")
-    field14 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field14', "Enter") 
-    field15 = custom_percentage_input("Construction Interest Rate (Margin Spread %)",'field15', "Enter")
+        field11 = st.write("Operations End Date: - Phase 1", calculate_future_date(field9,field10)) # TBC
+    field12 = custom_percentage_input("Debt Ratio (%) - Phase 1", 'field12', "Enter") 
+    field13 = custom_percentage_input("Equity Ratio (%) - Phase 1", 'field13', "Enter")
+    field14 = custom_percentage_input("Construction Interest Rate (Base Rate %) - Phase 1", 'field14', "Enter") 
+    field15 = custom_percentage_input("Construction Interest Rate (Margin Spread %) - Phase 1",'field15', "Enter")
     if field14 != 0 and field15 != 0:
         field16 = st.write("All in Rate (%)", field14 + field15) # TBC
-    field17 = custom_percentage_input("Operations Interest Rate (Base Rate %)",'field17', "Enter")
-    field18 = custom_percentage_input("Operations Interest Rate (Margin Spread %)",'field18', "Enter")
+    field17 = custom_percentage_input("Operations Interest Rate (Base Rate %) - Phase 1",'field17', "Enter")
+    field18 = custom_percentage_input("Operations Interest Rate (Margin Spread %) - Phase 1",'field18', "Enter")
     if field17 != 0 and field18 != 0:
-        field19 = st.write("All in Rate (%)", field17 + field18) # TBC
+        field19 = st.write("All in Rate (%) - Phase 1", field17 + field18) # TBC
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown(
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
@@ -508,22 +508,22 @@ elif st.session_state.page == 'next_page':
         '</div>', unsafe_allow_html=True)
     col1, col2 = st.columns((1, 1))
     with col1:
-        field20 = custom_number_input("Construction Cost", 'field20',"Enter")
-        field21 = custom_number_input("Gross Availability", 'field21',"Enter")
-        field22 = custom_percentage_input("Availibility Factor (%)", 'field22',"Enter",95.0)
-        field23 = custom_percentage_input("Input to Output Ratio (%)", 'field23',"Enter",100.0)
-        field24 = custom_percentage_input("Leakage Ratio/Losses (%)", 'field24',"Enter",95.0)
-        field25 = custom_percentage_input("Labor Cost (EGP'000)", 'field25',"Enter")
-        field26 = custom_number_input("Maintenance Costs (EGP'000)", 'field26',"Enter")
+        field20 = custom_number_input("Construction Cost - Phase 1", 'field20',"Enter")
+        field21 = custom_number_input("Gross Availability - Phase 1", 'field21',"Enter")
+        field22 = custom_percentage_input("Availibility Factor (%) - Phase 1", 'field22',"Enter",95.0)
+        field23 = custom_percentage_input("Input to Output Ratio (%) - Phase 1", 'field23',"Enter",100.0)
+        field24 = custom_percentage_input("Leakage Ratio/Losses (%) - Phase 1", 'field24',"Enter",95.0)
+        field25 = custom_number_input("Labor Cost (EGP'000) - Phase 1", 'field25',"Enter")
+        field26 = custom_number_input("Maintenance Costs (EGP'000) - Phase 1", 'field26',"Enter")
     with col2:
-        field27 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000)", 'field27',"Enter")
-        field28 = custom_number_input("Maintenance Cost (EGP'000)", 'field28',"Enter")
-        field29 = custom_number_input("Variable Cost (EGP'000)", 'field29',"Enter")
-        field30 = custom_number_input("Energy Consumption (KW/m³)", 'field30',"Enter")
-        field31 = custom_number_input("Energy Cost (EGP/KW)", 'field31',"Enter")
+        field27 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000) - Phase 1", 'field27',"Enter")
+        field28 = custom_number_input("Maintenance Cost (EGP'000) - Phase 1", 'field28',"Enter")
+        field29 = custom_number_input("Variable Cost (EGP'000) - Phase 1", 'field29',"Enter")
+        field30 = custom_number_input("Energy Consumption (KW/m³) - Phase 1", 'field30',"Enter")
+        field31 = custom_number_input("Energy Cost (EGP/KW) - Phase 1", 'field31',"Enter")
         if field30 != 0 and field31 != 0:
-            field32 = st.write("Effective Price (EGP/m³)",field30*field31)
-        field33 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter")
+            field32 = st.write("Effective Price (EGP/m³) - Phase 1",field30*field31)
+        field33 = custom_number_input("RO Replacement Cost (EGP'000) - Phase 1", 'field33',"Enter")
     st.button("Continue", on_click=continue_to_next_page1)
 elif st.session_state.page == 'next_page1':
     field34 = 0
@@ -559,25 +559,25 @@ elif st.session_state.page == 'next_page1':
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
         '<strong>Phase 2</strong>'
         '</div>', unsafe_allow_html=True)
-    field34 = custom_number_input("Exchange Rate", 'field34', "Enter",0.0)
-    field35 = custom_date_input("Construction Start Date", 'field35')
-    field36 = custom_number_input("Construction Period(in months)", 'field36', "Enter",0.0)
+    # field34 = custom_number_input("Exchange Rate", 'field34', "Enter",0.0)
+    field35 = custom_date_input("Construction Start Date - Phase 2", 'field35')
+    field36 = custom_number_input("Construction Period(in months) - Phase 2", 'field36', "Enter",0.0)
     if field36 != 0:
         st.write("Construction End Date:", calculate_future_date(field35,field36)) # TBC
         field37 = calculate_future_date(field35,field36)
-    field38 = custom_number_input("Operations Period(in months)", 'field38', "Enter",0.0)
+    field38 = custom_number_input("Operations Period(in months) - Phase 2", 'field38', "Enter",0.0)
     if field38 != 0:
-        field39 = st.write("Operations End Date:", calculate_future_date(field37,field38)) # TBC
-    field40 = custom_percentage_input("Debt Ratio (%)", 'field40', "Enter",0.0) 
-    field41 = custom_percentage_input("Equity Ratio (%)", 'field41', "Enter",0.0)
-    field42 = custom_percentage_input("Construction Interest Rate (Base Rate %)", 'field42', "Enter",0.0) 
-    field43 = custom_percentage_input("Construction Interest Rate (Margin Spread %)",'field43', "Enter",0.0)
+        field39 = st.write("Operations End Date: - Phase 2", calculate_future_date(field37,field38)) # TBC
+    field40 = custom_percentage_input("Debt Ratio (%) - Phase 2", 'field40', "Enter",0.0) 
+    field41 = custom_percentage_input("Equity Ratio (%) - Phase 2", 'field41', "Enter",0.0)
+    field42 = custom_percentage_input("Construction Interest Rate (Base Rate %) - Phase 2", 'field42', "Enter",0.0) 
+    field43 = custom_percentage_input("Construction Interest Rate (Margin Spread %) - Phase 2",'field43', "Enter",0.0)
     if field42 != 0 and field43 != 0:
-        field44 = st.write("All in Rate (%)", field42 + field43) # TBC
-    field45 = custom_percentage_input("Operations Interest Rate (Base Rate %)",'field45', "Enter",0.0)
-    field46 = custom_percentage_input("Operations Interest Rate (Margin Spread %)",'field46', "Enter",0.0)
+        field44 = st.write("All in Rate (%) - Phase 2", field42 + field43) # TBC
+    field45 = custom_percentage_input("Operations Interest Rate (Base Rate %) - Phase 2",'field45', "Enter",0.0)
+    field46 = custom_percentage_input("Operations Interest Rate (Margin Spread %) - Phase 2",'field46', "Enter",0.0)
     if field45 != 0 and field46 != 0:
-        field47 = st.write("All in Rate (%)", field45 + field46) # TBC
+        field47 = st.write("All in Rate (%) - Phase 2", field45 + field46) # TBC
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown(
         f'<div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 80%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
@@ -585,22 +585,22 @@ elif st.session_state.page == 'next_page1':
         '</div>', unsafe_allow_html=True)
     col1, col2 = st.columns((1, 1))
     with col1:
-        field48 = custom_number_input("Construction Cost", 'field48',"Enter",0.0)
-        field49 = custom_number_input("Gross Availability", 'field49',"Enter",0.0)
-        field50 = custom_percentage_input("Availibility Factor (%)", 'field50',"Enter",95.0)
-        field51 = custom_percentage_input("Input to Output Ratio (%)", 'field51',"Enter",100.0)
-        field52 = custom_percentage_input("Leakage Ratio/Losses (%)", 'field52',"Enter",95.0)
-        field53 = custom_percentage_input("Labor Cost (%)", 'field53',"Enter",0.0)
-        field54 = custom_number_input("Maintenance Costs (EGP'000)", 'field54',"Enter",0.0)
+        field48 = custom_number_input("Construction Cost - Phase 2", 'field48',"Enter",0.0)
+        field49 = custom_number_input("Gross Availability - Phase 2", 'field49',"Enter",0.0)
+        field50 = custom_percentage_input("Availibility Factor (%) - Phase 2", 'field50',"Enter",95.0)
+        field51 = custom_percentage_input("Input to Output Ratio (%) - Phase 2", 'field51',"Enter",100.0)
+        field52 = custom_percentage_input("Leakage Ratio/Losses (%) - Phase 2", 'field52',"Enter",95.0)
+        field53 = custom_number_input("Labor Cost (EGP'000) - Phase 2", 'field53',"Enter",0.0)
+        field54 = custom_number_input("Maintenance Costs (EGP'000) - Phase 2", 'field54',"Enter",0.0)
     with col2:
-        field55 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000)", 'field27',"Enter",0.0)
-        field56 = custom_number_input("Maintenance Cost (EGP'000)", 'field28',"Enter",0.0)
-        field57 = custom_number_input("Variable Cost (EGP'000)", 'field29',"Enter",0.0)
-        field58 = custom_number_input("Energy Consumption (KW/m³)", 'field58',"Enter",0.0)
-        field59 = custom_number_input("Energy Cost (EGP/KW)", 'field59',"Enter",0.0)
+        field55 = custom_number_input("Environment & Performance Monitoring Costs (EGP'000) - Phase 2", 'field27',"Enter",0.0)
+        field56 = custom_number_input("Maintenance Cost (EGP'000) - Phase 2", 'field28',"Enter",0.0)
+        field57 = custom_number_input("Variable Cost (EGP'000) - Phase 2", 'field29',"Enter",0.0)
+        field58 = custom_number_input("Energy Consumption (KW/m³) - Phase 2", 'field58',"Enter",0.0)
+        field59 = custom_number_input("Energy Cost (EGP/KW) - Phase 2", 'field59',"Enter",0.0)
         if field58 != 0 and field59 != 0:
-            field60 = st.write("Effective Price (EGP/m³)",field58*field59)
-        field61 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter",0.0)
+            field60 = st.write("Effective Price (EGP/m³) - Phase 2",field58*field59)
+        field61 = custom_number_input("RO Replacement Cost (EGP'000) - Phase 2", 'field33',"Enter",0.0)
 #     st.button("Continue", on_click=continue_to_next_page2)
 # elif st.session_state.page == 'next_page2':
 #     st.markdown("Dashboard", unsafe_allow_html=True)
