@@ -592,6 +592,6 @@ elif st.session_state.page == 'next_page1':
         if field58 != 0 and field59 != 0:
             field60 = st.write("Effective Price (EGP/m³)",field58*field59)
         field61 = custom_number_input("RO Replacement Cost (EGP'000)", 'field33',"Enter")
-    st.button("Continue", on_click=continue_to_next_page2)
+    # st.button("Continue", on_click=continue_to_next_page2)
 elif st.session_state.page == 'next_page2':
     st.markdown("Dashboard", unsafe_allow_html=True)
