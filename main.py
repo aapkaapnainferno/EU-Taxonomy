@@ -127,7 +127,7 @@ if st.session_state.page == 'main':
     with st.container():
         col1, col2 = st.columns((1, 5))
         with col1:
-            st.image("CL2.png",width=180)
+            st.image("CL3.png",width=180)
         with col2:
             st.markdown(
                 f'<br><br><div style="background-color: {bg_color}; color: white; padding: 5px; border-radius: 15px; margin-bottom: 15px; width: 100%; text-align: center; font-size: 36px; margin-top: -50px;" class="center-text">'
