@@ -226,6 +226,8 @@ if st.session_state.page == 'main':
                     st.markdown(
                         f'<br><div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the net average energy consumption for abstraction and treatment for produced water supply (in kWh/m3)?</strong>'
+                        '<button class="info-button tooltip" id="info-btn">i'
+                        '<span class="tooltiptext">Should be less than or equal to 0.5</span>'
                         '</div>', unsafe_allow_html=True)
                     answer4 = st.number_input('Enter your response (kWh/m3)', min_value=0.0, step=0.01,label_visibility='collapsed')
 
@@ -234,7 +236,7 @@ if st.session_state.page == 'main':
                         f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the Leakage Level associated with this activity?</strong>'
                         '<button class="info-button tooltip" id="info-btn">i'
-                        '<span class="tooltiptext">ILI= Current Annual Real Losses (CARL) / Unavoidable Annual Real Losses (UARL)</span>'
+                        '<span class="tooltiptext">ILI= Current Annual Real Losses (CARL) / Unavoidable Annual Real Losses (UARL)<br>Should be less than or equal to 1.5</span>'
                         '</button>'
                         '</div>', unsafe_allow_html=True)
                     answer5 = st.number_input('Enter your response (kWh/m3)1', min_value=0.0, step=0.01,label_visibility='collapsed')
@@ -249,6 +251,9 @@ if st.session_state.page == 'main':
                     st.markdown(
                         f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the net average energy consumption compared to own baseline performance average for three years (in kWh/m3)</strong>'
+                        '<button class="info-button tooltip" id="info-btn">i'
+                        '<span class="tooltiptext">Should be greater than or equal to 20</span>'
+                        '</button>'
                         '</div>', unsafe_allow_html=True)
                     answer6 = st.number_input('Enter your response (kWh/m3)', min_value=0.0, max_value=100.0, step=0.01,label_visibility='collapsed')
 
@@ -256,14 +261,20 @@ if st.session_state.page == 'main':
                     st.markdown(
                         f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the Leakage Level between the current leakage level averaged over three years, calculated using the ILI of 1.5?</strong>'
+                        '<button class="info-button tooltip" id="info-btn">i'
+                        '<span class="tooltiptext">Should be greater than or equal to 20</span>'
+                        '</button>'
                         '</div>', unsafe_allow_html=True)
                     answer7 = st.number_input('Enter your response (kWh/m3)1', min_value=0.0, max_value=100.0, step=0.01,label_visibility='collapsed')
             #2B
-            if (answer2 == "Yes" and (answer5 <= 1.5 and answer4 <= 0.5)) or (answer3 == "Yes"  and (answer6 >= 20 and answer7 >= 20)):
+            if (answer2 == "Yes" and (answer5 <= 1.5 and answer4 <= 0.5) and (answer5 != 0.0 and answer4 != 0.0)) or (answer3 == "Yes"  and (answer6 >= 20 and answer7 >= 20)):
                 with col2:
                     st.markdown(
                         f'<div style="background-color: {bg_color}; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;" class="big-font">'
                         '<strong>What is the Greenhouse Gas emissions of your activity (in CO2e/m3)?</strong>'
+                        '<button class="info-button tooltip" id="info-btn">i'
+                        '<span class="tooltiptext">Should be less than 1080</span>'
+                        '</button>'
                         '</div>', unsafe_allow_html=True)
                     answer8 = st.number_input('Enter your response (gCO2e/m3)', min_value=0.0, step=0.01,label_visibility='collapsed')
 
@@ -299,6 +310,12 @@ if st.session_state.page == 'main':
                         answer9[key] = st.checkbox(label, key=key)
                     answer9 = [label for key, label in options.items() if answer9[key]]
                 if len(answer9) == 1 and ("None of the above" in answer9) and answer8 < 1080:
+                    col3, col4 = st.columns((1, 5))
+                    with col4:
+                        st.markdown(
+                        f'<div style="background-color: #00FF00; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%; text-align: center;" class="big-font">'
+                        '<strong>The envisioned Activity is EU Taxonomy Eligible</strong>'
+                        '</div>', unsafe_allow_html=True)
                     st.markdown("<hr class='bold-hr'>", unsafe_allow_html=True)
                     col1, col2 = st.columns((1, 5))
                     with col1:
